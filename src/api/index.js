@@ -1,4 +1,8 @@
-var socket = new WebSocket("ws://localhost:8080/ws");
+var socket =null
+
+const openSocket = (userid) => {
+  socket = new WebSocket(`ws://localhost:8080/ws/?id=${userid}`);
+}
 
 const connect = (cb) => {
   console.log("Attempting Connection...");
@@ -29,4 +33,4 @@ const sendMsg = msg => {
   socket.send(msg);
 };
 
-export { connect, sendMsg };
+export { connect, sendMsg, openSocket };
