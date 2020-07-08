@@ -65,11 +65,11 @@ function App() {
         case 'gameUpdate':
           setPlayer1(player1+1)
           var tempscore= `{"score":${player1+1}}`
-          payload=`{"type": "gameUpdate", "body": {"update": ${tempscore}, "roomAuth": ${roomAuth}}}`
+          payload=`{"type": "gameUpdate", "body": {"update": ${tempscore}, "userID": "${session.name}"}}`
 
           break;
         case 'matchReq':
-          payload=`{"type": "matchReq", "body": {"matchType": "custom", "users": {"p1": "${session.name}"}}}`
+          payload=`{"type": "matchReq", "body": {"matchType": "random", "users": {"p1": "${session.name}"}}}`
           break;
 
         case 'enterRoom':
