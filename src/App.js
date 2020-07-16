@@ -52,7 +52,7 @@ function App() {
   function startGame() {
     dispatch(toggleReady())
     dispatch(setName(playerID))
-    openSocket(url);
+    openSocket(url, playerID);
   }
   const handleChange=(event) =>{
     setURL(event.target.value)
@@ -121,7 +121,7 @@ function App() {
             <p>Players in room: {session.numPlayers}</p>
 
 
-            <button 
+        <button 
           disabled={!session.ready}
           onClick={()=>closeSocket()}
         >
