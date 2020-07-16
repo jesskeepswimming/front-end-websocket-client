@@ -7,27 +7,35 @@ const openSocket = (websocketURL) => {
 
 }
 
-const connect = (cb) => {
-  console.log("Attempting Connection...");
+const closeSocket = () => {
+  console.log("socket closed")     
+  socket.close(); 
+  }
 
-  socket.onopen = () => {
-    console.log("Successfully Connected");
-    socket.send("Hi from the client")
+const connect = (cb, ready) => {
 
-  };
+  if (ready) {
+    console.log("Attempting Connection...");
 
-  socket.onmessage = msg => {
-    console.log(msg);
-    cb(msg);
-  };
+    socket.onopen = () => {
+      console.log("Successfully Connected");
+      socket.send('{"Type":"connect", "Body":"client connected"}')
+    };
 
-  socket.onclose = event => {
-    console.log("Socket Closed Connection: ", event);
-  };
+    socket.onmessage = msg => {
+      console.log(msg);
+      cb(msg);
+    };
 
-  socket.onerror = error => {
-    console.log("Socket Error: ", error);
-  };
+    socket.onclose = event => {
+      console.log("Socket Closed Connection: ", event);
+    };
+
+    socket.onerror = error => {
+      console.log("Socket Error: ", error);
+    };
+
+  }
 };
 
 // sends message from frontend to backend
@@ -36,4 +44,4 @@ const sendMsg = msg => {
   socket.send(msg);
 };
 
-export { connect, sendMsg, openSocket };
+export { connect, sendMsg, openSocket, closeSocket };
