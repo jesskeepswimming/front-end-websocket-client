@@ -9,6 +9,9 @@ import {setNumPlayers} from "./actions/session"
 function App() {
 
   const [playerID, setPlayerID] = useState();
+  const [url, setURL] = useState();
+  const [room, setRoom] = useState();
+
   const dispatch = useDispatch();
   const session = useSelector(state => state.sessionReducer);
 
@@ -86,8 +89,21 @@ function App() {
 
     dispatch(setName(playerID))
     dispatch(toggleReady())
-    openSocket(playerID);
+    openSocket(url);
   }
+
+  const handleChange=(event) =>{
+    setURL(event.target.value)
+  }
+
+  const handleUsername=(event) =>{
+    setPlayerID(event.target.value)
+  }
+
+  const handleRoom=(event) =>{
+    setRoom(event.target.value)
+  }
+
 
 
   return (
@@ -97,24 +113,27 @@ function App() {
 
         <h1> Lobby </h1>
         <h2> Players in room: {session.numPlayers}  </h2>       
-        <button 
-          onClick={() => {
-            setPlayerID('player1')
-          }}
-        >
-          Player 1
-        </button>
+      
 
-        <button 
-          onClick={() => {
-            setPlayerID('player2')
-          }}
-        >
-          Player 2
-        </button>
+        <label>
+          username:
+          <input type="text" value={playerID} onChange={handleUsername} />
+        </label>
 
+        <label>
+          roomID:
+          <input type="text" value={room} onChange={handleRoom} />
+        </label>
+
+
+    
+        <label>
+          URL:
+          <input type="text" value={url} onChange={handleChange} />
+        </label>
+       
         <button 
-          disabled={!playerID}
+          disabled={!url}
           onClick={startGame}
         >
           Enter Room: 

@@ -1,7 +1,10 @@
 var socket =null
 
-const openSocket = (userid) => {
-  socket = new WebSocket(`ws://localhost:8080/ws/?id=${userid}`);
+const openSocket = (websocketURL) => {
+//  socket = new WebSocket(`ws://localhost:8080/ws/?id=${userid}/?room=${roomid}`);
+  console.log("url", websocketURL)
+  socket = new WebSocket(websocketURL);
+
 }
 
 const connect = (cb) => {
