@@ -52,7 +52,7 @@ function App() {
   function startGame() {
     dispatch(toggleReady())
     dispatch(setName(playerID))
-    openSocket(url, playerID);
+    openSocket(url, playerID, room);
   }
   const handleChange=(event) =>{
     setURL(event.target.value)

@@ -1,10 +1,13 @@
 var socket =null
 var name = ""
-const openSocket = (websocketURL, userID) => {
+var room = ""
+
+const openSocket = (websocketURL, userID, roomID) => {
 //  socket = new WebSocket(`ws://localhost:8080/ws/?id=${userid}/?room=${roomid}`);
   console.log("url", websocketURL)
   socket = new WebSocket(websocketURL);
   name = userID;
+  room = roomID
 
 }
 
@@ -21,7 +24,7 @@ const connect = (cb, ready) => {
 
     socket.onopen = () => {
       console.log("Successfully Connected");
-      socket.send(`{"Type":"connect", "Body":"${name} connected"}`)
+      socket.send(`{"Type":"connect", "Body":{"userID": "${name}", "roomID":"${room}"}}`)
     };
 
     socket.onmessage = msg => {
